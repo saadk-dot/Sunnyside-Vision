@@ -3,7 +3,6 @@ import { useState, createContext, useContext } from 'react'
 import { translations } from './lib/translations'
 import Nav from './components/Nav'
 import HomePage from './pages/HomePage'
-import MapPage from './pages/MapPage'
 import GalleryPage from './pages/GalleryPage'
 import MetricsPage from './pages/MetricsPage'
 import AboutPage from './pages/AboutPage'
@@ -27,7 +26,6 @@ export default function App() {
               <Nav />
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/map" element={<MapPage />} />
                 <Route path="/gallery" element={<GalleryPage />} />
                 <Route path="/metrics" element={<MetricsPage />} />
                 <Route path="/about" element={<AboutPage />} />
