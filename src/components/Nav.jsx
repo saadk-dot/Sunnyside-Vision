@@ -12,7 +12,7 @@ export default function Nav() {
   const links = [
     { to: '/', label: 'Map' },
     { to: '/gallery', label: t('nav', 'gallery') },
-    { to: '/metrics', label: t('nav', 'metrics') },
+    { to: '/analytics', label: 'Analytics' },
     { to: '/about', label: t('nav', 'about') },
   ]
   return (

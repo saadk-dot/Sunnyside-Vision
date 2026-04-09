@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import AdminAnalytics from './AdminAnalytics'
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || 'sunnyside2024'
 
@@ -18,6 +19,7 @@ export default function AdminPage() {
           <Route path="/gallery" element={<AdminGallery />} />
           <Route path="/responses" element={<AdminResponses />} />
           <Route path="/content" element={<AdminContent />} />
+          <Route path="/analytics" element={<AdminAnalytics />} />
         </Routes>
       </div>
     </div>
@@ -53,6 +55,7 @@ function AdminSidebar({ onLogout }) {
     { to: '/admin/gallery', label: 'Gallery', icon: '🖼' },
     { to: '/admin/responses', label: 'Responses', icon: '📊' },
     { to: '/admin/content', label: 'Page Content', icon: '✏️' },
+    { to: '/admin/analytics', label: 'Analytics Widgets', icon: '📈' },
   ]
   return (
     <div style={{ width: 240, background: '#1A1814', color: '#F7F4EE', display: 'flex', flexDirection: 'column' }}>

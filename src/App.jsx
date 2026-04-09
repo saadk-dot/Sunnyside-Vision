@@ -4,7 +4,7 @@ import { translations } from './lib/translations'
 import Nav from './components/Nav'
 import HomePage from './pages/HomePage'
 import GalleryPage from './pages/GalleryPage'
-import MetricsPage from './pages/MetricsPage'
+import AnalyticsPage from './pages/AnalyticsPage'
 import AboutPage from './pages/AboutPage'
 import AdminPage from './pages/AdminPage'
 
@@ -27,7 +27,7 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/gallery" element={<GalleryPage />} />
-                <Route path="/metrics" element={<MetricsPage />} />
+                <Route path="/analytics" element={<AnalyticsPage />} />
                 <Route path="/about" element={<AboutPage />} />
               </Routes>
             </>
