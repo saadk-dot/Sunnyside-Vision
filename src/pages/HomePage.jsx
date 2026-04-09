@@ -10,22 +10,31 @@ import 'leaflet/dist/leaflet.css'
 const SUNNYSIDE_CENTER = [40.7440, -73.9226]
 const DEFAULT_ZOOM = 15
 
-function makeIcon(color = '#C8873A') {
+function makeIcon(color = '#C8873A', name = '') {
   return L.divIcon({
     className: '',
-    html: `<div style="
-      width: 18px; height: 18px; border-radius: 50%;
-      background: ${color}; border: 3px solid white;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.35);
-      cursor: pointer; position: relative; z-index: 2;
-    ">
+    html: `<div style="cursor:pointer;display:flex;flex-direction:column;align-items:center;">
       <div style="
-        position: absolute; width: 38px; height: 38px; border-radius: 50%;
-        background: ${color}44; top: 50%; left: 50%;
-        transform: translate(-50%,-50%);
-        animation: sv-pulse 2s ease-out infinite;
-        z-index: 1;
-      "></div>
+        width: 22px; height: 22px; border-radius: 50%;
+        background: ${color}; border: 3px solid white;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        position: relative; z-index: 2; flex-shrink:0;
+      ">
+        <div style="
+          position: absolute; width: 44px; height: 44px; border-radius: 50%;
+          background: ${color}33; top: 50%; left: 50%;
+          transform: translate(-50%,-50%);
+          animation: sv-pulse 2s ease-out infinite;
+          z-index: 1;
+        "></div>
+      </div>
+      <div style="
+        margin-top: 5px; background: ${color}; color: white;
+        font-size: 11px; font-weight: 600; padding: 3px 8px;
+        border-radius: 10px; white-space: nowrap;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        font-family: Inter, sans-serif; letter-spacing: 0.02em;
+      ">${name}</div>
     </div>
     <style>
       @keyframes sv-pulse {
@@ -33,8 +42,8 @@ function makeIcon(color = '#C8873A') {
         100% { opacity: 0; transform: translate(-50%,-50%) scale(2.2); }
       }
     </style>`,
-    iconSize: [18, 18],
-    iconAnchor: [9, 9],
+    iconSize: [100, 60],
+    iconAnchor: [50, 11],
   })
 }
 
@@ -131,7 +140,7 @@ export default function HomePage() {
   async function loadLocations() {
     const { data } = await supabase
       .from('locations')
-      .select('*, location_images(*)')
+      .select('*, location_images(*), survey_questions(*)')
       .order('created_at', { ascending: true })
     if (data) setLocations(data)
   }
@@ -173,32 +182,39 @@ export default function HomePage() {
             <Marker
               key={loc.id}
               position={[loc.latitude, loc.longitude]}
-              icon={makeIcon(loc.color || '#C8873A')}
+              icon={makeIcon(loc.color || '#C8873A', loc.name)}
               eventHandlers={{
                 mouseover: (e) => {
                   const containerPoint = e.containerPoint
                   setHoverPos({ x: containerPoint.x, y: containerPoint.y })
                   setHoveredLocation(loc)
                 },
-                mouseout: () => setHoveredLocation(null),
-                click: () => setSelected(loc)
+                mouseout: () => {
+                  setTimeout(() => setHoveredLocation(null), 100)
+                },
+                click: () => {
+                  setHoveredLocation(null)
+                  setSelected(loc)
+                }
               }}
             />
           ))}
         </MapContainer>
 
-        {/* Floating hover card */}
+        {/* Floating hover card — pointer-events none so it never blocks pin clicks */}
         {hoveredLocation && (
           <div style={{
             position: 'absolute',
-            left: Math.min(hoverPos.x + 16, window.innerWidth - 290),
-            top: Math.max(hoverPos.y - 100, 10),
+            left: Math.min(hoverPos.x + 24, window.innerWidth - 300),
+            top: Math.max(hoverPos.y - 120, 10),
             zIndex: 999,
             pointerEvents: 'none',
             animation: 'cardIn 0.15s ease-out'
           }}>
             <style>{`@keyframes cardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}`}</style>
-            <HoverCard location={hoveredLocation} onSelect={setSelected} />
+            <div style={{ pointerEvents: 'none' }}>
+              <HoverCard location={hoveredLocation} onSelect={setSelected} />
+            </div>
           </div>
         )}
 

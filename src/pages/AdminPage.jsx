@@ -284,6 +284,8 @@ function AdminLocationDetail() {
         </div>
       </div>
 
+      <SubImagesManager locationId={id} locationName={loc.name} />
+
       <div style={{ background: 'white', borderRadius: 12, padding: '28px', border: '1px solid #DDD8CE' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
           <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 24 }}>Survey Questions</h2>
@@ -292,6 +294,85 @@ function AdminLocationDetail() {
         {showAddQ && <AddQuestionForm locationId={id} onSave={() => { setShowAddQ(false); load() }} onCancel={() => setShowAddQ(false)} orderNum={questions.length} />}
         {questions.map((q, i) => <QuestionRow key={q.id} question={q} index={i} onDelete={() => deleteQuestion(q.id)} onUpdate={load} />)}
         {questions.length === 0 && !showAddQ && <p style={{ color: '#A09880', fontSize: 14, fontStyle: 'italic' }}>No questions yet.</p>}
+      </div>
+    </div>
+  )
+}
+
+function SubImagesManager({ locationId, locationName }) {
+  const [subImages, setSubImages] = useState([])
+  const [uploading, setUploading] = useState(false)
+  const [caption, setCaption] = useState('')
+  const [editingCaption, setEditingCaption] = useState(null)
+  const fileRef = useRef()
+
+  useEffect(() => { loadSubs() }, [locationId])
+  async function loadSubs() {
+    const { data } = await supabase.from('sub_images').select('*').eq('location_id', locationId).order('order_num')
+    if (data) setSubImages(data)
+  }
+  async function upload(file) {
+    setUploading(true)
+    const ext = file.name.split('.').pop()
+    const path = 'sub_images/' + locationId + '/' + Date.now() + '.' + ext
+    const { error } = await supabase.storage.from('images').upload(path, file)
+    if (!error) {
+      const { data: urlData } = supabase.storage.from('images').getPublicUrl(path)
+      const letter = String.fromCharCode(65 + subImages.length)
+      await supabase.from('sub_images').insert({ location_id: locationId, image_url: urlData.publicUrl, caption: caption || 'View ' + letter + ' — ' + locationName, order_num: subImages.length })
+      setCaption('')
+      loadSubs()
+    }
+    setUploading(false)
+  }
+  async function deleteSub(id) { await supabase.from('sub_images').delete().eq('id', id); loadSubs() }
+  async function saveCaption(id, cap) { await supabase.from('sub_images').update({ caption: cap }).eq('id', id); setEditingCaption(null); loadSubs() }
+
+  return (
+    <div style={{ background: 'white', borderRadius: 12, padding: '28px', border: '1px solid #DDD8CE', marginBottom: 24 }}>
+      <div style={{ marginBottom: 16 }}>
+        <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 24 }}>Survey Photo Options</h2>
+        <p style={{ fontSize: 13, color: '#6B6458', marginTop: 4 }}>These are the photos users pick from at the start of the survey. Add up to 9. Users will see placeholders until you upload real photos.</p>
+      </div>
+      <div style={{ display: 'flex', gap: 10, marginBottom: 20, padding: '14px', background: '#F7F4EE', borderRadius: 8 }}>
+        <input value={caption} onChange={e => setCaption(e.target.value)} placeholder={'e.g. Next to subway entrance; Looking towards 46th Street'}
+          style={{ flex: 1, padding: '9px 12px', borderRadius: 7, border: '1.5px solid #DDD8CE', fontSize: 13, outline: 'none' }} />
+        <button onClick={() => fileRef.current && fileRef.current.click()} disabled={uploading} style={{ padding: '9px 18px', borderRadius: 7, background: '#C8873A', color: 'white', border: 'none', fontWeight: 600, fontSize: 13, flexShrink: 0, cursor: 'pointer' }}>
+          {uploading ? 'Uploading...' : '+ Upload Photo'}
+        </button>
+        <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => e.target.files[0] && upload(e.target.files[0])} />
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+        {subImages.map((img, i) => {
+          const letter = String.fromCharCode(65 + i)
+          return (
+            <div key={img.id} style={{ borderRadius: 8, overflow: 'hidden', border: '1px solid #DDD8CE', background: '#FDFCF9' }}>
+              <div style={{ position: 'relative' }}>
+                <img src={img.image_url} alt={img.caption} style={{ width: '100%', height: 100, objectFit: 'cover', display: 'block' }} />
+                <div style={{ position: 'absolute', top: 5, left: 5, background: 'rgba(0,0,0,0.6)', color: 'white', fontSize: 11, fontWeight: 700, padding: '2px 6px', borderRadius: 4 }}>{letter}</div>
+                <button onClick={() => deleteSub(img.id)} style={{ position: 'absolute', top: 5, right: 5, background: 'rgba(192,57,43,0.85)', color: 'white', border: 'none', borderRadius: 4, width: 22, height: 22, fontSize: 12, cursor: 'pointer' }}>x</button>
+              </div>
+              <div style={{ padding: '8px 10px' }}>
+                {editingCaption === img.id ? (
+                  <div style={{ display: 'flex', gap: 6 }}>
+                    <input defaultValue={img.caption} id={'cap-' + img.id} style={{ flex: 1, padding: '5px 8px', borderRadius: 6, border: '1.5px solid #C8873A', fontSize: 12, outline: 'none' }} />
+                    <button onClick={() => saveCaption(img.id, document.getElementById('cap-' + img.id).value)} style={{ padding: '5px 10px', borderRadius: 6, background: '#1A1814', color: 'white', border: 'none', fontSize: 11, cursor: 'pointer' }}>Save</button>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6 }}>
+                    <span style={{ fontSize: 11, color: '#6B6458', lineHeight: 1.3, flex: 1 }}>{img.caption}</span>
+                    <button onClick={() => setEditingCaption(img.id)} style={{ background: 'none', border: 'none', fontSize: 11, color: '#A09880', cursor: 'pointer', flexShrink: 0 }}>Edit</button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )
+        })}
+        {subImages.length === 0 && (
+          <div style={{ gridColumn: '1/-1', padding: '24px', textAlign: 'center', color: '#A09880', fontSize: 13, fontStyle: 'italic', background: '#F7F4EE', borderRadius: 8 }}>
+            No photos uploaded yet. Users will see placeholders until you add photos here.
+          </div>
+        )}
       </div>
     </div>
   )
