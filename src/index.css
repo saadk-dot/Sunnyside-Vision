@@ -1,21 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap");
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg: #F7F4EE; --ink: #1A1814; --muted: #6B6458;
-  --accent: #C8873A; --accent-dark: #A36A25; --green: #3D6B5A;
-  --border: #DDD8CE; --card: #FDFCF9; --nav-h: 60px; --radius: 12px;
+  --bg: #EEF4FB;
+  --ink: #1B3A6B;
+  --muted: #4A6FA5;
+  --accent: #4A90D9;
+  --accent-dark: #2E6FB5;
+  --orange: #E8722A;
+  --navy: #1B3A6B;
+  --border: #C5D8EF;
+  --card: #FFFFFF;
+  --nav-h: 60px;
+  --radius: 12px;
 }
 html { font-size: 16px; }
-body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; -webkit-font-smoothing: antialiased; }
-h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
+body { font-family: "Inter", sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: "Cormorant Garamond", serif; }
 a { color: inherit; text-decoration: none; }
-button { cursor: pointer; font-family: 'Inter', sans-serif; }
-input, textarea, select { font-family: 'Inter', sans-serif; font-size: 14px; }
-.leaflet-container { font-family: 'Inter', sans-serif; }
-.leaflet-popup-content-wrapper { border-radius: var(--radius) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.15) !important; padding: 0 !important; overflow: hidden; }
+button { cursor: pointer; font-family: "Inter", sans-serif; }
+input, textarea, select { font-family: "Inter", sans-serif; font-size: 14px; }
+.leaflet-container { font-family: "Inter", sans-serif; }
+.leaflet-popup-content-wrapper { border-radius: var(--radius) !important; box-shadow: 0 8px 32px rgba(27,58,107,0.15) !important; padding: 0 !important; overflow: hidden; }
 .leaflet-popup-content { margin: 0 !important; width: auto !important; }
 .leaflet-popup-tip-container { display: none; }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--border); }
-::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 [dir="rtl"] { text-align: right; }

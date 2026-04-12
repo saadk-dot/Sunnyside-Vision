@@ -3,8 +3,8 @@ import { supabase } from '../lib/supabase'
 import { ANALYTICS_QUESTIONS } from './AnalyticsPage'
 
 const SECTION_COLORS = {
-  'Bliss Plaza': '#C8873A',
-  'Lowery Plaza': '#3D6B5A',
+  'Bliss Plaza': '#4A90D9',
+  'Lowery Plaza': '#1B3A6B',
   'Under the 7 Train': '#5B7FA6',
   'All': '#7B5EA7',
 }
@@ -55,7 +55,7 @@ export default function AdminAnalytics() {
         </div>
         <button onClick={save} disabled={saving} style={{
           padding: '12px 28px', borderRadius: 8,
-          background: saved ? '#3D6B5A' : '#1A1814',
+          background: saved ? '#1B3A6B' : '#1B3A6B',
           color: 'white', border: 'none', fontWeight: 600, fontSize: 14,
           flexShrink: 0, marginTop: 4
         }}>
@@ -70,7 +70,7 @@ export default function AdminAnalytics() {
       {/* Stats */}
       <div style={{ display: 'flex', gap: 16, marginBottom: 32 }}>
         <div style={{ background: 'white', borderRadius: 10, padding: '16px 20px', border: '1px solid #DDD8CE', textAlign: 'center', minWidth: 120 }}>
-          <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 36, color: '#C8873A', lineHeight: 1 }}>{ANALYTICS_QUESTIONS.length - hiddenWidgets.length}</div>
+          <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 36, color: '#4A90D9', lineHeight: 1 }}>{ANALYTICS_QUESTIONS.length - hiddenWidgets.length}</div>
           <div style={{ fontSize: 12, color: '#6B6458', marginTop: 4 }}>Visible</div>
         </div>
         <div style={{ background: 'white', borderRadius: 10, padding: '16px 20px', border: '1px solid #DDD8CE', textAlign: 'center', minWidth: 120 }}>
@@ -78,7 +78,7 @@ export default function AdminAnalytics() {
           <div style={{ fontSize: 12, color: '#6B6458', marginTop: 4 }}>Hidden</div>
         </div>
         <div style={{ background: 'white', borderRadius: 10, padding: '16px 20px', border: '1px solid #DDD8CE', textAlign: 'center', minWidth: 120 }}>
-          <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 36, color: '#1A1814', lineHeight: 1 }}>{ANALYTICS_QUESTIONS.length}</div>
+          <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 36, color: '#1B3A6B', lineHeight: 1 }}>{ANALYTICS_QUESTIONS.length}</div>
           <div style={{ fontSize: 12, color: '#6B6458', marginTop: 4 }}>Total</div>
         </div>
         <button onClick={() => setHiddenWidgets([])} style={{ padding: '12px 20px', borderRadius: 8, border: '1.5px solid #DDD8CE', background: 'none', fontSize: 13, color: '#6B6458', cursor: 'pointer', alignSelf: 'center' }}>
@@ -91,7 +91,7 @@ export default function AdminAnalytics() {
 
       {sections.map(section => {
         const sectionQs = ANALYTICS_QUESTIONS.filter(q => q.section === section)
-        const color = SECTION_COLORS[sectionQs[0]?.location] || '#C8873A'
+        const color = SECTION_COLORS[sectionQs[0]?.location] || '#4A90D9'
 
         return (
           <div key={section} style={{ marginBottom: 40 }}>
@@ -129,7 +129,7 @@ export default function AdminAnalytics() {
                     </div>
 
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontWeight: 500, fontSize: 14, color: '#1A1814', marginBottom: 3 }}>{q.question}</div>
+                      <div style={{ fontWeight: 500, fontSize: 14, color: '#1B3A6B', marginBottom: 3 }}>{q.question}</div>
                       <div style={{ fontSize: 12, color: '#A09880' }}>
                         {q.location !== 'All' ? q.location : 'All Locations'} ·{' '}
                         {q.type === 'multi' ? 'Multi-select' : q.type === 'scale' ? 'Scale 1–5' : 'Single choice'} ·{' '}

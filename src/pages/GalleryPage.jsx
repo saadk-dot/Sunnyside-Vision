@@ -30,7 +30,7 @@ export default function GalleryPage() {
               <div key={item.id} style={{ breakInside: 'avoid', marginBottom: 20, borderRadius: 12, overflow: 'hidden', background: 'var(--card)', border: '1px solid var(--border)' }}>
                 <img src={item.image_url} alt={item.locations?.name} style={{ width: '100%', display: 'block' }} onError={e => e.target.src = `https://picsum.photos/seed/${item.id}/400/400`} />
                 <div style={{ padding: '14px 16px' }}>
-                  <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: 20, fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', background: item.locations?.color || 'var(--accent)', color: 'white', marginBottom: 6 }}>{item.locations?.name}</span>
+                  <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: 20, fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', background: item.locations?.color || '#4A90D9', color: 'white', marginBottom: 6 }}>{item.locations?.name}</span>
                   <p style={{ fontSize: 12, color: 'var(--muted)' }}>{new Date(item.created_at).toLocaleDateString()}</p>
                 </div>
               </div>

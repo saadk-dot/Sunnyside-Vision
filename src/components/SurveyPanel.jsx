@@ -78,7 +78,7 @@ export default function SurveyPanel({ location, onClose }) {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
         <div>
-          <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--accent)', fontWeight: 600, marginBottom: 3 }}>{location.name}</div>
+          <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#4A90D9', fontWeight: 600, marginBottom: 3 }}>{location.name}</div>
           <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 22, fontWeight: 600 }}>Share Your Vision</div>
         </div>
         <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: 22, color: 'var(--muted)', cursor: 'pointer', padding: 4 }}>✕</button>
@@ -112,14 +112,14 @@ export default function SurveyPanel({ location, onClose }) {
                 return (
                   <div key={img.id} onClick={() => setSelectedSubImage(img)} style={{
                     borderRadius: 8, overflow: 'hidden', cursor: 'pointer',
-                    border: `2.5px solid ${isSel ? 'var(--accent)' : 'var(--border)'}`,
-                    transition: 'all 0.15s', boxShadow: isSel ? '0 0 0 3px rgba(200,135,58,0.2)' : 'none'
+                    border: `2.5px solid ${isSel ? '#4A90D9' : 'var(--border)'}`,
+                    transition: 'all 0.15s', boxShadow: isSel ? '0 0 0 3px rgba(74,144,217,0.2)' : 'none'
                   }}>
                     <div style={{ position: 'relative' }}>
                       <img src={img.image_url} alt={img.caption} style={{ width: '100%', height: 88, objectFit: 'cover', display: 'block' }}
                         onError={e => e.target.src = `https://picsum.photos/seed/${i+1}x/200/150`} />
                       {isSel && (
-                        <div style={{ position: 'absolute', top: 5, right: 5, width: 20, height: 20, borderRadius: '50%', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ position: 'absolute', top: 5, right: 5, width: 20, height: 20, borderRadius: '50%', background: '#4A90D9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <span style={{ color: 'white', fontSize: 11, fontWeight: 700 }}>✓</span>
                         </div>
                       )}
@@ -145,10 +145,10 @@ export default function SurveyPanel({ location, onClose }) {
       {step === 'location' && (
         <div>
           {selectedSubImage && (
-            <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 24, padding: '10px 12px', background: 'rgba(200,135,58,0.08)', borderRadius: 8, border: '1px solid rgba(200,135,58,0.2)' }}>
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 24, padding: '10px 12px', background: 'rgba(74,144,217,0.08)', borderRadius: 8, border: '1px solid rgba(74,144,217,0.2)' }}>
               <img src={selectedSubImage.image_url} alt="" style={{ width: 56, height: 42, objectFit: 'cover', borderRadius: 5, flexShrink: 0 }} />
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>Your chosen view</div>
+                <div style={{ fontSize: 10, color: '#4A90D9', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>Your chosen view</div>
                 <div style={{ fontSize: 12, color: 'var(--ink)', marginTop: 2 }}>{selectedSubImage.caption}</div>
               </div>
               <button onClick={() => setStep('subimage')} style={{ background: 'none', border: 'none', fontSize: 11, color: 'var(--muted)', cursor: 'pointer', flexShrink: 0 }}>Change</button>
@@ -173,7 +173,7 @@ export default function SurveyPanel({ location, onClose }) {
       {/* STEP 3: Priorities & Values */}
       {step === 'priorities' && (
         <div>
-          <div style={{ marginBottom: 24, padding: '12px 14px', borderLeft: '3px solid var(--accent)', background: 'rgba(200,135,58,0.06)', borderRadius: '0 8px 8px 0', fontSize: 13, color: 'var(--muted)', lineHeight: 1.6 }}>
+          <div style={{ marginBottom: 24, padding: '12px 14px', borderLeft: '3px solid #4A90D9', background: 'rgba(74,144,217,0.06)', borderRadius: '0 8px 8px 0', fontSize: 13, color: 'var(--muted)', lineHeight: 1.6 }}>
             A few questions about your values and priorities for public space in Sunnyside.
           </div>
           {PRIORITIES_QUESTIONS.map((q, i) => (
@@ -183,7 +183,7 @@ export default function SurveyPanel({ location, onClose }) {
             <button onClick={() => setStep('location')} style={{ padding: '12px 18px', borderRadius: 9, border: '1.5px solid var(--border)', background: 'none', fontSize: 14, color: 'var(--muted)', cursor: 'pointer' }}>← Back</button>
             <button onClick={generate} disabled={!priRequiredDone} style={{
               flex: 1, padding: '12px', borderRadius: 9, border: 'none',
-              background: priRequiredDone ? 'var(--accent)' : 'var(--border)',
+              background: priRequiredDone ? '#E8722A' : 'var(--border)',
               color: priRequiredDone ? 'white' : 'var(--muted)',
               fontFamily: 'Cormorant Garamond, serif', fontSize: 18, fontWeight: 600,
               cursor: priRequiredDone ? 'pointer' : 'not-allowed', transition: 'all 0.2s'
@@ -195,7 +195,7 @@ export default function SurveyPanel({ location, onClose }) {
       {/* GENERATING */}
       {step === 'generating' && (
         <div style={{ textAlign: 'center', padding: '60px 0' }}>
-          <div style={{ width: 52, height: 52, borderRadius: '50%', border: '3px solid var(--border)', borderTopColor: 'var(--accent)', animation: 'spin 0.8s linear infinite', margin: '0 auto 24px' }} />
+          <div style={{ width: 52, height: 52, borderRadius: '50%', border: '3px solid var(--border)', borderTopColor: '#4A90D9', animation: 'spin 0.8s linear infinite', margin: '0 auto 24px' }} />
           <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
           <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 26, marginBottom: 8 }}>Creating your vision…</div>
           <p style={{ fontSize: 14, color: 'var(--muted)' }}>Transforming your answers into art</p>
@@ -211,9 +211,9 @@ export default function SurveyPanel({ location, onClose }) {
           <p style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 20 }}>Based on: <em>{selectedSubImage?.caption}</em></p>
           <div style={{ display: 'flex', gap: 12 }}>
             {!sharedToGallery ? (
-              <button onClick={shareToGallery} style={{ flex: 1, padding: '13px', borderRadius: 8, border: 'none', background: '#3D6B5A', color: 'white', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>Add to Community Gallery</button>
+              <button onClick={shareToGallery} style={{ flex: 1, padding: '13px', borderRadius: 8, border: 'none', background: '#1B3A6B', color: 'white', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>Add to Community Gallery</button>
             ) : (
-              <div style={{ flex: 1, padding: '13px', borderRadius: 8, background: 'rgba(61,107,90,0.1)', border: '1.5px solid #3D6B5A', fontSize: 14, fontWeight: 600, color: '#3D6B5A', textAlign: 'center' }}>✓ Added to Gallery!</div>
+              <div style={{ flex: 1, padding: '13px', borderRadius: 8, background: 'rgba(27,58,107,0.08)', border: '1.5px solid #1B3A6B', fontSize: 14, fontWeight: 600, color: '#1B3A6B', textAlign: 'center' }}>✓ Added to Gallery!</div>
             )}
             <button onClick={onClose} style={{ padding: '13px 20px', borderRadius: 8, border: '1.5px solid var(--border)', background: 'none', fontSize: 14, color: 'var(--muted)', cursor: 'pointer' }}>Close</button>
           </div>
@@ -227,7 +227,7 @@ function QuestionBlock({ q, index, answers, setAnswer, toggleMulti }) {
   const val = answers[q.id]
   return (
     <div style={{ marginBottom: 24 }}>
-      <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--accent)', fontWeight: 600, marginBottom: 5 }}>Question {index + 1}</div>
+      <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#4A90D9', fontWeight: 600, marginBottom: 5 }}>Question {index + 1}</div>
       <label style={{ display: 'block', fontSize: 14, fontWeight: 500, marginBottom: 11, lineHeight: 1.45, color: 'var(--ink)' }}>{q.question_text}</label>
 
       {q.question_type === 'text' && (
@@ -243,8 +243,8 @@ function QuestionBlock({ q, index, answers, setAnswer, toggleMulti }) {
             return (
               <button key={opt} onClick={() => isMulti ? toggleMulti(q.id, opt) : setAnswer(q.id, opt)} style={{
                 padding: '10px 13px', borderRadius: 8, textAlign: 'left',
-                border: `1.5px solid ${selected ? 'var(--accent)' : 'var(--border)'}`,
-                background: selected ? 'rgba(200,135,58,0.1)' : 'var(--bg)',
+                border: `1.5px solid ${selected ? '#4A90D9' : 'var(--border)'}`,
+                background: selected ? 'rgba(74,144,217,0.12)' : 'var(--bg)',
                 fontSize: 13, color: 'var(--ink)', fontWeight: selected ? 600 : 400,
                 transition: 'all 0.15s', cursor: 'pointer', lineHeight: 1.4
               }}>{selected ? '✓ ' : ''}{opt}</button>
@@ -259,7 +259,7 @@ function QuestionBlock({ q, index, answers, setAnswer, toggleMulti }) {
             {[1,2,3,4,5].map(n => (
               <button key={n} onClick={() => setAnswer(q.id, n)} style={{
                 flex: 1, height: 44, borderRadius: 8,
-                border: `1.5px solid ${val === n ? 'var(--accent)' : 'var(--border)'}`,
+                border: `1.5px solid ${val === n ? '#4A90D9' : 'var(--border)'}`,
                 background: val === n ? 'var(--accent)' : 'var(--bg)',
                 color: val === n ? 'white' : 'var(--ink)',
                 fontSize: 16, fontWeight: 600, transition: 'all 0.15s', cursor: 'pointer'

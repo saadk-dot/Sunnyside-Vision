@@ -221,7 +221,7 @@ export default function HomePage() {
         {/* Map label */}
         <div style={{
           position: 'absolute', top: 16, left: 16, zIndex: 998,
-          background: 'rgba(26,24,20,0.85)', color: 'white',
+          background: 'rgba(27,58,107,0.9)', color: 'white',
           padding: '8px 16px', borderRadius: 8,
           fontSize: 12, fontWeight: 600,
           textTransform: 'uppercase', letterSpacing: '0.1em',
@@ -235,7 +235,7 @@ export default function HomePage() {
       {selected && (
         <div style={{
           position: 'fixed', inset: 0, zIndex: 2000,
-          background: 'rgba(26,24,20,0.6)',
+          background: 'rgba(27,58,107,0.65)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           padding: '20px',
           animation: 'fadeIn 0.2s ease-out'
@@ -262,14 +262,14 @@ export default function HomePage() {
 
       {/* INTRO BANNER — below map */}
       <div style={{
-        background: '#1A1814', color: '#F7F4EE',
+        background: '#1B3A6B', color: '#FFFFFF',
         padding: '72px 48px'
       }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           {/* Eyebrow */}
           <div style={{
             fontSize: 11, textTransform: 'uppercase',
-            letterSpacing: '0.18em', color: '#C8873A',
+            letterSpacing: '0.18em', color: '#4A90D9',
             fontWeight: 600, marginBottom: 16, textAlign: 'center'
           }}>
             Sunnyside Public Realm Vision
@@ -280,11 +280,11 @@ export default function HomePage() {
             fontFamily: 'Cormorant Garamond, serif',
             fontSize: 'clamp(36px, 4vw, 56px)',
             textAlign: 'center', marginBottom: 64,
-            lineHeight: 1.1, color: '#F7F4EE',
+            lineHeight: 1.1, color: '#FFFFFF',
             fontWeight: 400
           }}>
             Imagining the future of our neighborhood,<br />
-            <em style={{ color: '#C8873A' }}>together.</em>
+            <em style={{ color: '#4A90D9' }}>together.</em>
           </h2>
 
           {/* Three columns */}
@@ -299,11 +299,11 @@ export default function HomePage() {
               { title: content.why_title, body: content.why_body, icon: '◇' },
             ].map((col, i) => (
               <div key={i} style={{
-                borderTop: '1px solid rgba(200,135,58,0.4)',
+                borderTop: '1px solid rgba(74,144,217,0.4)',
                 paddingTop: 32
               }}>
                 <div style={{
-                  fontSize: 24, color: '#C8873A', marginBottom: 16
+                  fontSize: 24, color: '#4A90D9', marginBottom: 16
                 }}>{col.icon}</div>
                 <h3 style={{
                   fontFamily: 'Cormorant Garamond, serif',
@@ -312,7 +312,7 @@ export default function HomePage() {
                 }}>{col.title}</h3>
                 <p style={{
                   fontSize: 15, lineHeight: 1.75,
-                  color: 'rgba(247,244,238,0.7)'
+                  color: 'rgba(255,255,255,0.75)'
                 }}>{col.body}</p>
               </div>
             ))}

@@ -34,14 +34,14 @@ function AdminLogin({ onLogin }) {
     else { setError(true); setTimeout(() => setError(false), 2000) }
   }
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#1A1814' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#1B3A6B' }}>
       <div style={{ background: '#F7F4EE', borderRadius: 16, padding: '48px', width: 380, textAlign: 'center' }}>
         <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 28, marginBottom: 8 }}>Sunnyside Vision</div>
-        <div style={{ fontSize: 13, color: '#6B6458', marginBottom: 32, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Admin Panel</div>
+        <div style={{ fontSize: 13, color: '#4A6FA5', marginBottom: 32, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Admin Panel</div>
         <input type="password" placeholder="Password" value={pw} onChange={e => setPw(e.target.value)} onKeyDown={e => e.key === 'Enter' && attempt()}
-          style={{ width: '100%', padding: '12px 16px', borderRadius: 8, border: `1.5px solid ${error ? '#C8873A' : '#DDD8CE'}`, background: '#FDFCF9', fontSize: 15, marginBottom: 16, outline: 'none', color: '#1A1814' }} />
-        {error && <p style={{ color: '#C8873A', fontSize: 13, marginBottom: 16 }}>Incorrect password</p>}
-        <button onClick={attempt} style={{ width: '100%', padding: '13px', background: '#1A1814', color: '#F7F4EE', border: 'none', borderRadius: 8, fontSize: 15, fontWeight: 600 }}>Enter Admin</button>
+          style={{ width: '100%', padding: '12px 16px', borderRadius: 8, border: `1.5px solid ${error ? '#C8873A' : '#DDD8CE'}`, background: '#FDFCF9', fontSize: 15, marginBottom: 16, outline: 'none', color: '#1B3A6B' }} />
+        {error && <p style={{ color: '#4A90D9', fontSize: 13, marginBottom: 16 }}>Incorrect password</p>}
+        <button onClick={attempt} style={{ width: '100%', padding: '13px', background: '#1B3A6B', color: '#F7F4EE', border: 'none', borderRadius: 8, fontSize: 15, fontWeight: 600 }}>Enter Admin</button>
       </div>
     </div>
   )
@@ -58,10 +58,10 @@ function AdminSidebar({ onLogout }) {
     { to: '/admin/analytics', label: 'Analytics Widgets', icon: '📈' },
   ]
   return (
-    <div style={{ width: 240, background: '#1A1814', color: '#F7F4EE', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ padding: '28px 24px', borderBottom: '1px solid #2A2620' }}>
-        <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontWeight: 600 }}>Sunnyside <span style={{ color: '#C8873A', fontStyle: 'italic' }}>Vision</span></div>
-        <div style={{ fontSize: 11, color: '#6B6458', marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Admin Panel</div>
+    <div style={{ width: 240, background: '#1B3A6B', color: '#F7F4EE', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ padding: '28px 24px', borderBottom: '1px solid #162F58' }}>
+        <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontWeight: 600 }}>Sunnyside <span style={{ color: '#4A90D9', fontStyle: 'italic' }}>Vision</span></div>
+        <div style={{ fontSize: 11, color: '#4A6FA5', marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Admin Panel</div>
       </div>
       <nav style={{ flex: 1, padding: '16px 12px' }}>
         {links.map(l => (
@@ -73,9 +73,9 @@ function AdminSidebar({ onLogout }) {
           }}><span>{l.icon}</span> {l.label}</Link>
         ))}
       </nav>
-      <div style={{ padding: '16px 12px', borderTop: '1px solid #2A2620' }}>
-        <Link to="/" target="_blank" style={{ display: 'block', padding: '9px 12px', borderRadius: 8, color: '#A09880', fontSize: 13, marginBottom: 8 }}>↗ View Live Site</Link>
-        <button onClick={onLogout} style={{ width: '100%', padding: '9px 12px', borderRadius: 8, background: 'none', border: '1px solid #2A2620', color: '#6B6458', fontSize: 13, textAlign: 'left', cursor: 'pointer' }}>Log out</button>
+      <div style={{ padding: '16px 12px', borderTop: '1px solid #162F58' }}>
+        <Link to="/" target="_blank" style={{ display: 'block', padding: '9px 12px', borderRadius: 8, color: 'rgba(255,255,255,0.5)', fontSize: 13, marginBottom: 8 }}>↗ View Live Site</Link>
+        <button onClick={onLogout} style={{ width: '100%', padding: '9px 12px', borderRadius: 8, background: 'none', border: '1px solid #162F58', color: '#4A6FA5', fontSize: 13, textAlign: 'left', cursor: 'pointer' }}>Log out</button>
       </div>
     </div>
   )
@@ -93,12 +93,12 @@ function AdminHome() {
   return (
     <div style={{ padding: '48px' }}>
       <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 40, marginBottom: 8 }}>Dashboard</h1>
-      <p style={{ color: '#6B6458', marginBottom: 40 }}>Welcome to the Sunnyside Vision admin panel.</p>
+      <p style={{ color: '#4A6FA5', marginBottom: 40 }}>Welcome to the Sunnyside Vision admin panel.</p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20, marginBottom: 40 }}>
-        {[{ num: stats.locations, label: 'Map Locations', to: '/admin/locations', color: '#C8873A' }, { num: stats.responses, label: 'Survey Responses', to: '/admin/responses', color: '#3D6B5A' }, { num: stats.gallery, label: 'Gallery Items', to: '/admin/gallery', color: '#5B7FA6' }].map(s => (
-          <Link key={s.label} to={s.to} style={{ background: 'white', borderRadius: 12, padding: '28px', border: '1px solid #DDD8CE', textDecoration: 'none', color: '#1A1814', display: 'block' }}>
+        {[{ num: stats.locations, label: 'Map Locations', to: '/admin/locations', color: '#4A90D9' }, { num: stats.responses, label: 'Survey Responses', to: '/admin/responses', color: '#3D6B5A' }, { num: stats.gallery, label: 'Gallery Items', to: '/admin/gallery', color: '#5B7FA6' }].map(s => (
+          <Link key={s.label} to={s.to} style={{ background: 'white', borderRadius: 12, padding: '28px', border: '1px solid #DDD8CE', textDecoration: 'none', color: '#1B3A6B', display: 'block' }}>
             <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 56, color: s.color, lineHeight: 1 }}>{s.num}</div>
-            <div style={{ fontSize: 14, color: '#6B6458', marginTop: 8 }}>{s.label}</div>
+            <div style={{ fontSize: 14, color: '#4A6FA5', marginTop: 8 }}>{s.label}</div>
           </Link>
         ))}
       </div>
@@ -127,9 +127,9 @@ function AdminLocations() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32 }}>
         <div>
           <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 40, marginBottom: 4 }}>Locations</h1>
-          <p style={{ color: '#6B6458' }}>Manage map pins, photos, and survey questions</p>
+          <p style={{ color: '#4A6FA5' }}>Manage map pins, photos, and survey questions</p>
         </div>
-        <button onClick={() => setShowAdd(true)} style={{ padding: '12px 24px', borderRadius: 8, background: '#C8873A', color: 'white', border: 'none', fontWeight: 600, fontSize: 14 }}>+ Add Location</button>
+        <button onClick={() => setShowAdd(true)} style={{ padding: '12px 24px', borderRadius: 8, background: '#4A90D9', color: 'white', border: 'none', fontWeight: 600, fontSize: 14 }}>+ Add Location</button>
       </div>
       {showAdd && <AddLocationForm onSave={() => { setShowAdd(false); load() }} onCancel={() => setShowAdd(false)} />}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -144,10 +144,10 @@ function AdminLocations() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
                 <div style={{ width: 12, height: 12, borderRadius: '50%', background: loc.color || '#C8873A' }} />
                 <span style={{ fontWeight: 600, fontSize: 16 }}>{loc.name}</span>
-                <span style={{ fontSize: 12, color: '#6B6458', background: '#F0EDE6', padding: '2px 8px', borderRadius: 12 }}>{loc.survey_questions?.length || 0} questions</span>
+                <span style={{ fontSize: 12, color: '#4A6FA5', background: '#F0EDE6', padding: '2px 8px', borderRadius: 12 }}>{loc.survey_questions?.length || 0} questions</span>
               </div>
-              <p style={{ fontSize: 13, color: '#6B6458', lineHeight: 1.5 }}>{loc.description}</p>
-              <p style={{ fontSize: 12, color: '#A09880', marginTop: 4 }}>📍 {loc.latitude?.toFixed(4)}, {loc.longitude?.toFixed(4)}</p>
+              <p style={{ fontSize: 13, color: '#4A6FA5', lineHeight: 1.5 }}>{loc.description}</p>
+              <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginTop: 4 }}>📍 {loc.latitude?.toFixed(4)}, {loc.longitude?.toFixed(4)}</p>
             </div>
             <div style={{ display: 'flex', gap: 10, flexShrink: 0 }}>
               <button onClick={() => navigate(`/admin/locations/${loc.id}`)} style={{ padding: '8px 18px', borderRadius: 8, border: '1.5px solid #DDD8CE', background: 'none', fontSize: 13, fontWeight: 500, cursor: 'pointer' }}>Edit</button>
@@ -161,7 +161,7 @@ function AdminLocations() {
 }
 
 function AddLocationForm({ onSave, onCancel }) {
-  const [form, setForm] = useState({ name: '', description: '', latitude: '', longitude: '', color: '#C8873A' })
+  const [form, setForm] = useState({ name: '', description: '', latitude: '', longitude: '', color: '#4A90D9' })
   const [saving, setSaving] = useState(false)
   async function save() {
     if (!form.name || !form.latitude || !form.longitude) return alert('Name, latitude and longitude are required')
@@ -170,25 +170,25 @@ function AddLocationForm({ onSave, onCancel }) {
     setSaving(false); onSave()
   }
   return (
-    <div style={{ background: 'white', borderRadius: 12, padding: '28px', border: '1.5px solid #C8873A', marginBottom: 24 }}>
+    <div style={{ background: 'white', borderRadius: 12, padding: '28px', border: '1.5px solid #4A90D9', marginBottom: 24 }}>
       <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 24, marginBottom: 20 }}>New Location</h3>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
         {[{ label: 'Location Name', key: 'name', placeholder: 'e.g. Skillman Ave Plaza' }, { label: 'Pin Color (hex)', key: 'color', placeholder: '#C8873A' }, { label: 'Latitude', key: 'latitude', placeholder: '40.7440' }, { label: 'Longitude', key: 'longitude', placeholder: '-73.9226' }].map(f => (
           <div key={f.key}>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#6B6458', marginBottom: 6 }}>{f.label}</label>
+            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#4A6FA5', marginBottom: 6 }}>{f.label}</label>
             <input value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} placeholder={f.placeholder} style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1.5px solid #DDD8CE', fontSize: 14, outline: 'none' }} />
           </div>
         ))}
       </div>
       <div style={{ marginTop: 16 }}>
-        <label style={{ display: 'block', fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#6B6458', marginBottom: 6 }}>Description</label>
+        <label style={{ display: 'block', fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#4A6FA5', marginBottom: 6 }}>Description</label>
         <textarea value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} placeholder="Brief description of this location..." style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1.5px solid #DDD8CE', fontSize: 14, minHeight: 80, resize: 'vertical', outline: 'none' }} />
       </div>
-      <div style={{ marginTop: 12, padding: '10px 14px', background: '#F7F4EE', borderRadius: 8, fontSize: 12, color: '#6B6458' }}>
-        💡 <strong>Finding coordinates:</strong> Go to <a href="https://www.openstreetmap.org" target="_blank" rel="noreferrer" style={{ color: '#C8873A' }}>openstreetmap.org</a>, right-click any spot → "Show address" to get the latitude/longitude.
+      <div style={{ marginTop: 12, padding: '10px 14px', background: '#F7F4EE', borderRadius: 8, fontSize: 12, color: '#4A6FA5' }}>
+        💡 <strong>Finding coordinates:</strong> Go to <a href="https://www.openstreetmap.org" target="_blank" rel="noreferrer" style={{ color: '#4A90D9' }}>openstreetmap.org</a>, right-click any spot → "Show address" to get the latitude/longitude.
       </div>
       <div style={{ display: 'flex', gap: 12, marginTop: 20 }}>
-        <button onClick={save} disabled={saving} style={{ padding: '11px 28px', borderRadius: 8, background: '#1A1814', color: 'white', border: 'none', fontWeight: 600, fontSize: 14 }}>{saving ? 'Saving...' : 'Create Location'}</button>
+        <button onClick={save} disabled={saving} style={{ padding: '11px 28px', borderRadius: 8, background: '#1B3A6B', color: 'white', border: 'none', fontWeight: 600, fontSize: 14 }}>{saving ? 'Saving...' : 'Create Location'}</button>
         <button onClick={onCancel} style={{ padding: '11px 20px', borderRadius: 8, border: '1.5px solid #DDD8CE', background: 'none', fontSize: 14 }}>Cancel</button>
       </div>
     </div>
@@ -240,11 +240,11 @@ function AdminLocationDetail() {
     await supabase.from('survey_questions').delete().eq('id', qId); load()
   }
 
-  if (!loc) return <div style={{ padding: 48, color: '#6B6458' }}>Loading...</div>
+  if (!loc) return <div style={{ padding: 48, color: '#4A6FA5' }}>Loading...</div>
 
   return (
     <div style={{ padding: '48px' }}>
-      <Link to="/admin/locations" style={{ fontSize: 13, color: '#6B6458', marginBottom: 24, display: 'inline-block' }}>← Back to Locations</Link>
+      <Link to="/admin/locations" style={{ fontSize: 13, color: '#4A6FA5', marginBottom: 24, display: 'inline-block' }}>← Back to Locations</Link>
       <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 40, marginBottom: 32 }}>Edit: {loc.name}</h1>
 
       <div style={{ background: 'white', borderRadius: 12, padding: '28px', border: '1px solid #DDD8CE', marginBottom: 24 }}>
@@ -252,25 +252,25 @@ function AdminLocationDetail() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           {[{ label: 'Name', key: 'name' }, { label: 'Pin Color (hex)', key: 'color' }, { label: 'Latitude', key: 'latitude' }, { label: 'Longitude', key: 'longitude' }].map(f => (
             <div key={f.key}>
-              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#6B6458', marginBottom: 6 }}>{f.label}</label>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#4A6FA5', marginBottom: 6 }}>{f.label}</label>
               <input value={form[f.key] || ''} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1.5px solid #DDD8CE', fontSize: 14, outline: 'none' }} />
             </div>
           ))}
         </div>
         <div style={{ marginTop: 16 }}>
-          <label style={{ display: 'block', fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#6B6458', marginBottom: 6 }}>Description</label>
+          <label style={{ display: 'block', fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#4A6FA5', marginBottom: 6 }}>Description</label>
           <textarea value={form.description || ''} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1.5px solid #DDD8CE', fontSize: 14, minHeight: 80, resize: 'vertical', outline: 'none' }} />
         </div>
-        <div style={{ marginTop: 12, padding: '10px 14px', background: '#F7F4EE', borderRadius: 8, fontSize: 12, color: '#6B6458' }}>
-          💡 To move this pin on the map, update the Latitude and Longitude. Go to <a href="https://www.openstreetmap.org" target="_blank" rel="noreferrer" style={{ color: '#C8873A' }}>openstreetmap.org</a>, right-click any location → "Show address" to get coordinates.
+        <div style={{ marginTop: 12, padding: '10px 14px', background: '#F7F4EE', borderRadius: 8, fontSize: 12, color: '#4A6FA5' }}>
+          💡 To move this pin on the map, update the Latitude and Longitude. Go to <a href="https://www.openstreetmap.org" target="_blank" rel="noreferrer" style={{ color: '#4A90D9' }}>openstreetmap.org</a>, right-click any location → "Show address" to get coordinates.
         </div>
-        <button onClick={saveLocation} disabled={saving} style={{ marginTop: 20, padding: '11px 28px', borderRadius: 8, background: '#1A1814', color: 'white', border: 'none', fontWeight: 600 }}>{saving ? 'Saving...' : 'Save Changes'}</button>
+        <button onClick={saveLocation} disabled={saving} style={{ marginTop: 20, padding: '11px 28px', borderRadius: 8, background: '#1B3A6B', color: 'white', border: 'none', fontWeight: 600 }}>{saving ? 'Saving...' : 'Save Changes'}</button>
       </div>
 
       <div style={{ background: 'white', borderRadius: 12, padding: '28px', border: '1px solid #DDD8CE', marginBottom: 24 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
           <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 24 }}>Location Photos</h2>
-          <button onClick={() => fileRef.current?.click()} disabled={uploading} style={{ padding: '9px 20px', borderRadius: 8, background: '#C8873A', color: 'white', border: 'none', fontWeight: 600, fontSize: 13 }}>{uploading ? 'Uploading...' : '+ Upload Photo'}</button>
+          <button onClick={() => fileRef.current?.click()} disabled={uploading} style={{ padding: '9px 20px', borderRadius: 8, background: '#4A90D9', color: 'white', border: 'none', fontWeight: 600, fontSize: 13 }}>{uploading ? 'Uploading...' : '+ Upload Photo'}</button>
           <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => e.target.files[0] && uploadImage(e.target.files[0])} />
         </div>
         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
@@ -280,7 +280,7 @@ function AdminLocationDetail() {
               <button onClick={() => deleteImage(img.id)} style={{ position: 'absolute', top: 6, right: 6, background: 'rgba(0,0,0,0.6)', color: 'white', border: 'none', borderRadius: 4, width: 24, height: 24, fontSize: 14, cursor: 'pointer' }}>✕</button>
             </div>
           ))}
-          {images.length === 0 && <p style={{ color: '#A09880', fontSize: 14, fontStyle: 'italic' }}>No photos yet.</p>}
+          {images.length === 0 && <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 14, fontStyle: 'italic' }}>No photos yet.</p>}
         </div>
       </div>
 
@@ -289,11 +289,11 @@ function AdminLocationDetail() {
       <div style={{ background: 'white', borderRadius: 12, padding: '28px', border: '1px solid #DDD8CE' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
           <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 24 }}>Survey Questions</h2>
-          <button onClick={() => setShowAddQ(true)} style={{ padding: '9px 20px', borderRadius: 8, background: '#3D6B5A', color: 'white', border: 'none', fontWeight: 600, fontSize: 13 }}>+ Add Question</button>
+          <button onClick={() => setShowAddQ(true)} style={{ padding: '9px 20px', borderRadius: 8, background: '#1B3A6B', color: 'white', border: 'none', fontWeight: 600, fontSize: 13 }}>+ Add Question</button>
         </div>
         {showAddQ && <AddQuestionForm locationId={id} onSave={() => { setShowAddQ(false); load() }} onCancel={() => setShowAddQ(false)} orderNum={questions.length} />}
         {questions.map((q, i) => <QuestionRow key={q.id} question={q} index={i} onDelete={() => deleteQuestion(q.id)} onUpdate={load} />)}
-        {questions.length === 0 && !showAddQ && <p style={{ color: '#A09880', fontSize: 14, fontStyle: 'italic' }}>No questions yet.</p>}
+        {questions.length === 0 && !showAddQ && <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 14, fontStyle: 'italic' }}>No questions yet.</p>}
       </div>
     </div>
   )
@@ -332,12 +332,12 @@ function SubImagesManager({ locationId, locationName }) {
     <div style={{ background: 'white', borderRadius: 12, padding: '28px', border: '1px solid #DDD8CE', marginBottom: 24 }}>
       <div style={{ marginBottom: 16 }}>
         <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 24 }}>Survey Photo Options</h2>
-        <p style={{ fontSize: 13, color: '#6B6458', marginTop: 4 }}>These are the photos users pick from at the start of the survey. Add up to 9. Users will see placeholders until you upload real photos.</p>
+        <p style={{ fontSize: 13, color: '#4A6FA5', marginTop: 4 }}>These are the photos users pick from at the start of the survey. Add up to 9. Users will see placeholders until you upload real photos.</p>
       </div>
       <div style={{ display: 'flex', gap: 10, marginBottom: 20, padding: '14px', background: '#F7F4EE', borderRadius: 8 }}>
         <input value={caption} onChange={e => setCaption(e.target.value)} placeholder={'e.g. Next to subway entrance; Looking towards 46th Street'}
           style={{ flex: 1, padding: '9px 12px', borderRadius: 7, border: '1.5px solid #DDD8CE', fontSize: 13, outline: 'none' }} />
-        <button onClick={() => fileRef.current && fileRef.current.click()} disabled={uploading} style={{ padding: '9px 18px', borderRadius: 7, background: '#C8873A', color: 'white', border: 'none', fontWeight: 600, fontSize: 13, flexShrink: 0, cursor: 'pointer' }}>
+        <button onClick={() => fileRef.current && fileRef.current.click()} disabled={uploading} style={{ padding: '9px 18px', borderRadius: 7, background: '#4A90D9', color: 'white', border: 'none', fontWeight: 600, fontSize: 13, flexShrink: 0, cursor: 'pointer' }}>
           {uploading ? 'Uploading...' : '+ Upload Photo'}
         </button>
         <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => e.target.files[0] && upload(e.target.files[0])} />
@@ -355,13 +355,13 @@ function SubImagesManager({ locationId, locationName }) {
               <div style={{ padding: '8px 10px' }}>
                 {editingCaption === img.id ? (
                   <div style={{ display: 'flex', gap: 6 }}>
-                    <input defaultValue={img.caption} id={'cap-' + img.id} style={{ flex: 1, padding: '5px 8px', borderRadius: 6, border: '1.5px solid #C8873A', fontSize: 12, outline: 'none' }} />
-                    <button onClick={() => saveCaption(img.id, document.getElementById('cap-' + img.id).value)} style={{ padding: '5px 10px', borderRadius: 6, background: '#1A1814', color: 'white', border: 'none', fontSize: 11, cursor: 'pointer' }}>Save</button>
+                    <input defaultValue={img.caption} id={'cap-' + img.id} style={{ flex: 1, padding: '5px 8px', borderRadius: 6, border: '1.5px solid #4A90D9', fontSize: 12, outline: 'none' }} />
+                    <button onClick={() => saveCaption(img.id, document.getElementById('cap-' + img.id).value)} style={{ padding: '5px 10px', borderRadius: 6, background: '#1B3A6B', color: 'white', border: 'none', fontSize: 11, cursor: 'pointer' }}>Save</button>
                   </div>
                 ) : (
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6 }}>
-                    <span style={{ fontSize: 11, color: '#6B6458', lineHeight: 1.3, flex: 1 }}>{img.caption}</span>
-                    <button onClick={() => setEditingCaption(img.id)} style={{ background: 'none', border: 'none', fontSize: 11, color: '#A09880', cursor: 'pointer', flexShrink: 0 }}>Edit</button>
+                    <span style={{ fontSize: 11, color: '#4A6FA5', lineHeight: 1.3, flex: 1 }}>{img.caption}</span>
+                    <button onClick={() => setEditingCaption(img.id)} style={{ background: 'none', border: 'none', fontSize: 11, color: 'rgba(255,255,255,0.5)', cursor: 'pointer', flexShrink: 0 }}>Edit</button>
                   </div>
                 )}
               </div>
@@ -369,7 +369,7 @@ function SubImagesManager({ locationId, locationName }) {
           )
         })}
         {subImages.length === 0 && (
-          <div style={{ gridColumn: '1/-1', padding: '24px', textAlign: 'center', color: '#A09880', fontSize: 13, fontStyle: 'italic', background: '#F7F4EE', borderRadius: 8 }}>
+          <div style={{ gridColumn: '1/-1', padding: '24px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontSize: 13, fontStyle: 'italic', background: '#F7F4EE', borderRadius: 8 }}>
             No photos uploaded yet. Users will see placeholders until you add photos here.
           </div>
         )}
@@ -399,17 +399,17 @@ function QuestionRow({ question, index, onDelete, onUpdate }) {
         <div style={{ marginBottom: 12 }}><label style={lbl}>Options (comma separated)</label><input value={form.options} onChange={e => setForm(p => ({...p,options:e.target.value}))} placeholder="Option 1, Option 2, Option 3" style={inp} /></div>
       )}
       <div style={{ display: 'flex', gap: 10 }}>
-        <button onClick={save} disabled={saving} style={{ padding: '8px 20px', borderRadius: 7, background: '#1A1814', color: 'white', border: 'none', fontWeight: 600, fontSize: 13 }}>{saving ? 'Saving...' : 'Save'}</button>
+        <button onClick={save} disabled={saving} style={{ padding: '8px 20px', borderRadius: 7, background: '#1B3A6B', color: 'white', border: 'none', fontWeight: 600, fontSize: 13 }}>{saving ? 'Saving...' : 'Save'}</button>
         <button onClick={() => setEditing(false)} style={{ padding: '8px 16px', borderRadius: 7, border: '1.5px solid #DDD8CE', background: 'none', fontSize: 13 }}>Cancel</button>
       </div>
     </div>
   )
   return (
     <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, padding: '16px 0', borderBottom: '1px solid #F0EDE6' }}>
-      <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#F0EDE6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 600, color: '#6B6458', flexShrink: 0 }}>{index + 1}</div>
+      <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#F0EDE6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 600, color: '#4A6FA5', flexShrink: 0 }}>{index + 1}</div>
       <div style={{ flex: 1 }}>
         <div style={{ fontWeight: 500, fontSize: 15, marginBottom: 4 }}>{question.question_text}</div>
-        <div style={{ fontSize: 12, color: '#A09880' }}>{typeLabels[question.question_type]}{question.options?.length > 0 && ` — ${question.options.join(', ')}`}</div>
+        <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>{typeLabels[question.question_type]}{question.options?.length > 0 && ` — ${question.options.join(', ')}`}</div>
       </div>
       <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
         <button onClick={() => setEditing(true)} style={{ padding: '6px 14px', borderRadius: 7, border: '1.5px solid #DDD8CE', background: 'none', fontSize: 12 }}>Edit</button>
@@ -438,7 +438,7 @@ function AddQuestionForm({ locationId, onSave, onCancel, orderNum }) {
         <div style={{ marginBottom: 12 }}><label style={lbl}>Options (comma separated)</label><input value={form.options} onChange={e => setForm(p => ({...p,options:e.target.value}))} placeholder="Green space, Seating area, Public art, Market stalls" style={inp} /></div>
       )}
       <div style={{ display: 'flex', gap: 10 }}>
-        <button onClick={save} disabled={saving} style={{ padding: '9px 24px', borderRadius: 7, background: '#3D6B5A', color: 'white', border: 'none', fontWeight: 600, fontSize: 13 }}>{saving ? 'Saving...' : 'Add Question'}</button>
+        <button onClick={save} disabled={saving} style={{ padding: '9px 24px', borderRadius: 7, background: '#1B3A6B', color: 'white', border: 'none', fontWeight: 600, fontSize: 13 }}>{saving ? 'Saving...' : 'Add Question'}</button>
         <button onClick={onCancel} style={{ padding: '9px 16px', borderRadius: 7, border: '1.5px solid #DDD8CE', background: 'none', fontSize: 13 }}>Cancel</button>
       </div>
     </div>
@@ -458,14 +458,14 @@ function AdminGallery() {
   return (
     <div style={{ padding: '48px' }}>
       <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 40, marginBottom: 8 }}>Gallery</h1>
-      <p style={{ color: '#6B6458', marginBottom: 40 }}>Manage community submitted artworks</p>
+      <p style={{ color: '#4A6FA5', marginBottom: 40 }}>Manage community submitted artworks</p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
         {items.map(item => (
           <div key={item.id} style={{ background: 'white', borderRadius: 12, overflow: 'hidden', border: '1px solid #DDD8CE' }}>
             <img src={item.image_url} alt="" style={{ width: '100%', height: 180, objectFit: 'cover', display: 'block' }} onError={e => e.target.src = `https://picsum.photos/seed/${item.id}/400/200`} />
             <div style={{ padding: '14px' }}>
               <div style={{ fontWeight: 500, fontSize: 14, marginBottom: 4 }}>{item.locations?.name}</div>
-              <div style={{ fontSize: 12, color: '#A09880', marginBottom: 12 }}>{new Date(item.created_at).toLocaleDateString()}</div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 12 }}>{new Date(item.created_at).toLocaleDateString()}</div>
               <div style={{ display: 'flex', gap: 8 }}>
                 <button onClick={() => toggleApprove(item.id, item.approved)} style={{ flex: 1, padding: '7px', borderRadius: 7, fontSize: 12, fontWeight: 600, border: 'none', background: item.approved ? '#E8F5E9' : '#FFF3E0', color: item.approved ? '#2E7D32' : '#E65100', cursor: 'pointer' }}>{item.approved ? '✓ Visible' : '○ Hidden'}</button>
                 <button onClick={() => deleteItem(item.id)} style={{ padding: '7px 12px', borderRadius: 7, border: '1.5px solid #FFCCCC', background: '#FFF5F5', color: '#C0392B', fontSize: 12, cursor: 'pointer' }}>Delete</button>
@@ -474,7 +474,7 @@ function AdminGallery() {
           </div>
         ))}
       </div>
-      {items.length === 0 && <p style={{ color: '#A09880', fontStyle: 'italic' }}>No gallery items yet.</p>}
+      {items.length === 0 && <p style={{ color: 'rgba(255,255,255,0.5)', fontStyle: 'italic' }}>No gallery items yet.</p>}
     </div>
   )
 }
@@ -488,13 +488,13 @@ function AdminResponses() {
   return (
     <div style={{ padding: '48px' }}>
       <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 40, marginBottom: 8 }}>Survey Responses</h1>
-      <p style={{ color: '#6B6458', marginBottom: 40 }}>{responses.length} total responses</p>
+      <p style={{ color: '#4A6FA5', marginBottom: 40 }}>{responses.length} total responses</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {responses.map(r => (
           <div key={r.id} style={{ background: 'white', borderRadius: 10, padding: '18px 22px', border: '1px solid #DDD8CE' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
               <span style={{ fontWeight: 600, fontSize: 14 }}>{r.locations?.name}</span>
-              <span style={{ fontSize: 12, color: '#A09880' }}>{new Date(r.created_at).toLocaleDateString()}</span>
+              <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>{new Date(r.created_at).toLocaleDateString()}</span>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
               {Object.entries(r.answers || {}).map(([k, v]) => (
@@ -504,7 +504,7 @@ function AdminResponses() {
           </div>
         ))}
       </div>
-      {responses.length === 0 && <p style={{ color: '#A09880', fontStyle: 'italic' }}>No responses yet.</p>}
+      {responses.length === 0 && <p style={{ color: 'rgba(255,255,255,0.5)', fontStyle: 'italic' }}>No responses yet.</p>}
     </div>
   )
 }
@@ -530,7 +530,7 @@ function AdminContent() {
     if (!error) { setSaved(true); setTimeout(() => setSaved(false), 3000) }
   }
 
-  if (!content) return <div style={{ padding: 48, color: '#6B6458' }}>Loading...</div>
+  if (!content) return <div style={{ padding: 48, color: '#4A6FA5' }}>Loading...</div>
 
   const fields = [
     { label: 'What We Are — Title', key: 'what_title', multiline: false },
@@ -544,11 +544,11 @@ function AdminContent() {
   return (
     <div style={{ padding: '48px' }}>
       <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 40, marginBottom: 8 }}>Page Content</h1>
-      <p style={{ color: '#6B6458', marginBottom: 40 }}>Edit the intro text shown below the map on the homepage</p>
+      <p style={{ color: '#4A6FA5', marginBottom: 40 }}>Edit the intro text shown below the map on the homepage</p>
       <div style={{ background: 'white', borderRadius: 12, padding: '32px', border: '1px solid #DDD8CE', maxWidth: 720 }}>
         {fields.map(f => (
           <div key={f.key} style={{ marginBottom: 24 }}>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#6B6458', marginBottom: 8 }}>{f.label}</label>
+            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#4A6FA5', marginBottom: 8 }}>{f.label}</label>
             {f.multiline ? (
               <textarea value={content[f.key] || ''} onChange={e => setContent(p => ({...p, [f.key]: e.target.value}))}
                 style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1.5px solid #DDD8CE', fontSize: 14, minHeight: 100, resize: 'vertical', outline: 'none', lineHeight: 1.6 }} />
@@ -558,7 +558,7 @@ function AdminContent() {
             )}
           </div>
         ))}
-        <button onClick={save} disabled={saving} style={{ padding: '12px 32px', borderRadius: 8, background: '#1A1814', color: 'white', border: 'none', fontWeight: 600, fontSize: 15 }}>
+        <button onClick={save} disabled={saving} style={{ padding: '12px 32px', borderRadius: 8, background: '#1B3A6B', color: 'white', border: 'none', fontWeight: 600, fontSize: 15 }}>
           {saving ? 'Saving...' : saved ? '✓ Saved!' : 'Save Content'}
         </button>
       </div>
@@ -566,5 +566,5 @@ function AdminContent() {
   )
 }
 
-const lbl = { display: 'block', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#6B6458', marginBottom: 5 }
-const inp = { width: '100%', padding: '9px 12px', borderRadius: 8, border: '1.5px solid #DDD8CE', fontSize: 14, outline: 'none', background: 'white', color: '#1A1814' }
+const lbl = { display: 'block', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#4A6FA5', marginBottom: 5 }
+const inp = { width: '100%', padding: '9px 12px', borderRadius: 8, border: '1.5px solid #DDD8CE', fontSize: 14, outline: 'none', background: 'white', color: '#1B3A6B' }

@@ -94,8 +94,8 @@ export const ANALYTICS_QUESTIONS = [
 ]
 
 const SECTION_COLORS = {
-  'Bliss Plaza': '#C8873A',
-  'Lowery Plaza': '#3D6B5A',
+  'Bliss Plaza': '#4A90D9',
+  'Lowery Plaza': '#1B3A6B',
   'Under the 7 Train': '#5B7FA6',
   'All': '#7B5EA7',
 }
@@ -155,7 +155,7 @@ export default function AnalyticsPage() {
   if (loading) return (
     <div style={{ paddingTop: 'var(--nav-h)', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       <div style={{ textAlign: 'center', color: 'var(--muted)' }}>
-        <div style={{ width: 40, height: 40, borderRadius: '50%', border: '3px solid var(--border)', borderTopColor: 'var(--accent)', animation: 'spin 0.8s linear infinite', margin: '0 auto 16px' }} />
+        <div style={{ width: 40, height: 40, borderRadius: '50%', border: '3px solid var(--border)', borderTopColor: '#4A90D9', animation: 'spin 0.8s linear infinite', margin: '0 auto 16px' }} />
         <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
         Loading analytics...
       </div>
@@ -168,7 +168,7 @@ export default function AnalyticsPage() {
 
         {/* Header */}
         <div style={{ marginBottom: 48 }}>
-          <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.16em', color: 'var(--accent)', fontWeight: 600, marginBottom: 12 }}>
+          <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.16em', color: '#4A90D9', fontWeight: 600, marginBottom: 12 }}>
             Community Data
           </div>
           <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 56, marginBottom: 8 }}>
@@ -182,9 +182,9 @@ export default function AnalyticsPage() {
         {/* Overview stats */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 56 }}>
           {[
-            { num: totalResponses, label: 'Total Responses', color: 'var(--accent)' },
-            { num: responses.filter(r => r.answers?.selected_location === 'Bliss Plaza').length, label: 'Bliss Plaza', color: '#C8873A' },
-            { num: responses.filter(r => r.answers?.selected_location === 'Lowery Plaza').length, label: 'Lowery Plaza', color: '#3D6B5A' },
+            { num: totalResponses, label: 'Total Responses', color: '#4A90D9' },
+            { num: responses.filter(r => r.answers?.selected_location === 'Bliss Plaza').length, label: 'Bliss Plaza', color: '#4A90D9' },
+            { num: responses.filter(r => r.answers?.selected_location === 'Lowery Plaza').length, label: 'Lowery Plaza', color: '#1B3A6B' },
             { num: responses.filter(r => r.answers?.selected_location === 'Under the 7 Train').length, label: 'Under the 7 Train', color: '#5B7FA6' },
           ].map(s => (
             <div key={s.label} style={{ background: 'var(--card)', borderRadius: 12, padding: '24px', border: '1px solid var(--border)', textAlign: 'center' }}>
@@ -197,7 +197,7 @@ export default function AnalyticsPage() {
         {/* Questions by section */}
         {sections.map(section => {
           const sectionQs = visibleQuestions.filter(q => q.section === section)
-          const sectionColor = SECTION_COLORS[sectionQs[0]?.location] || 'var(--accent)'
+          const sectionColor = SECTION_COLORS[sectionQs[0]?.location] || '#4A90D9'
 
           return (
             <div key={section} style={{ marginBottom: 64 }}>
