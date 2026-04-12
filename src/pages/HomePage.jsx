@@ -189,7 +189,7 @@ export default function HomePage() {
                   setHoveredLocation(loc)
                 },
                 mouseout: () => {
-                  setTimeout(() => setHoveredLocation(null), 100)
+                  setTimeout(() => setHoveredLocation(null), 400)
                 },
                 click: () => {
                   setHoveredLocation(null)
@@ -200,20 +200,21 @@ export default function HomePage() {
           ))}
         </MapContainer>
 
-        {/* Floating hover card — pointer-events none so it never blocks pin clicks */}
+        {/* Floating hover card */}
         {hoveredLocation && (
-          <div style={{
-            position: 'absolute',
-            left: Math.min(hoverPos.x + 24, window.innerWidth - 300),
-            top: Math.max(hoverPos.y - 120, 10),
-            zIndex: 999,
-            pointerEvents: 'none',
-            animation: 'cardIn 0.15s ease-out'
-          }}>
+          <div
+            style={{
+              position: 'absolute',
+              left: Math.min(hoverPos.x + 24, window.innerWidth - 300),
+              top: Math.max(hoverPos.y - 120, 10),
+              zIndex: 999,
+              animation: 'cardIn 0.15s ease-out'
+            }}
+            onMouseEnter={() => setHoveredLocation(hoveredLocation)}
+            onMouseLeave={() => setHoveredLocation(null)}
+          >
             <style>{`@keyframes cardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}`}</style>
-            <div style={{ pointerEvents: 'none' }}>
-              <HoverCard location={hoveredLocation} onSelect={setSelected} />
-            </div>
+            <HoverCard location={hoveredLocation} onSelect={(loc) => { setHoveredLocation(null); setSelected(loc) }} />
           </div>
         )}
 
