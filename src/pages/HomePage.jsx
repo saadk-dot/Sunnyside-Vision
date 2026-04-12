@@ -79,8 +79,7 @@ function HoverCard({ location, onSelect }) {
         }}>{location.name}</div>
         <p style={{
           fontSize: 13, color: '#6B6458', lineHeight: 1.55,
-          marginBottom: 12, display: '-webkit-box',
-          WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden'
+          marginBottom: 12, lineHeight: 1.6
         }}>{location.description}</p>
         <button onClick={() => onSelect(location)} style={{
           width: '100%', padding: '9px',
