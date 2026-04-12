@@ -332,7 +332,7 @@ function SubImagesManager({ locationId, locationName }) {
     <div style={{ background: 'white', borderRadius: 12, padding: '28px', border: '1px solid #DDD8CE', marginBottom: 24 }}>
       <div style={{ marginBottom: 16 }}>
         <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 24 }}>Survey Photo Options</h2>
-        <p style={{ fontSize: 13, color: '#4A6FA5', marginTop: 4 }}>These are the photos users pick from at the start of the survey. Add up to 9. Users will see placeholders until you upload real photos.</p>
+        <p style={{ fontSize: 13, color: '#4A6FA5', marginTop: 4 }}>These are the photos users pick from at the start of the survey. Upload as many as needed — each location can have a different number. Users will see a "coming soon" message until photos are uploaded.</p>
       </div>
       <div style={{ display: 'flex', gap: 10, marginBottom: 20, padding: '14px', background: '#F7F4EE', borderRadius: 8 }}>
         <input value={caption} onChange={e => setCaption(e.target.value)} placeholder={'e.g. Next to subway entrance; Looking towards 46th Street'}

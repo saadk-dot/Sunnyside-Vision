@@ -33,11 +33,8 @@ export default function SurveyPanel({ location, onClose }) {
     if (data && data.length > 0) {
       setSubImages(data)
     } else {
-      setSubImages(Array.from({ length: 9 }, (_, i) => ({
-        id: `ph${i+1}`,
-        image_url: `https://picsum.photos/seed/${location.id.slice(0,8)}${i+1}/400/300`,
-        caption: `View ${String.fromCharCode(65+i)} — Placeholder`
-      })))
+      // No photos uploaded yet — show a message instead of placeholders
+      setSubImages([])
     }
     setLoadingImages(false)
   }
@@ -104,8 +101,20 @@ export default function SurveyPanel({ location, onClose }) {
           </p>
           {loadingImages ? (
             <div style={{ textAlign: 'center', padding: '40px', color: 'var(--muted)' }}>Loading photos...</div>
+          ) : subImages.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '40px 20px', background: 'rgba(74,144,217,0.06)', borderRadius: 10, border: '1.5px dashed #C5D8EF', marginBottom: 20 }}>
+              <div style={{ fontSize: 32, marginBottom: 12 }}>📷</div>
+              <p style={{ fontSize: 14, color: 'var(--muted)', lineHeight: 1.6 }}>
+                Photos for this location are coming soon.<br />
+                <span style={{ fontSize: 13 }}>Check back shortly!</span>
+              </p>
+            </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 24 }}>
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: subImages.length <= 2 ? '1fr 1fr' : subImages.length <= 4 ? '1fr 1fr' : '1fr 1fr 1fr', 
+              gap: 10, marginBottom: 24 
+            }}>
               {subImages.map((img, i) => {
                 const letter = String.fromCharCode(65 + i)
                 const isSel = selectedSubImage?.id === img.id
@@ -116,8 +125,7 @@ export default function SurveyPanel({ location, onClose }) {
                     transition: 'all 0.15s', boxShadow: isSel ? '0 0 0 3px rgba(74,144,217,0.2)' : 'none'
                   }}>
                     <div style={{ position: 'relative' }}>
-                      <img src={img.image_url} alt={img.caption} style={{ width: '100%', height: 88, objectFit: 'cover', display: 'block' }}
-                        onError={e => e.target.src = `https://picsum.photos/seed/${i+1}x/200/150`} />
+                      <img src={img.image_url} alt={img.caption} style={{ width: '100%', height: subImages.length <= 4 ? 120 : 88, objectFit: 'cover', display: 'block' }} />
                       {isSel && (
                         <div style={{ position: 'absolute', top: 5, right: 5, width: 20, height: 20, borderRadius: '50%', background: '#4A90D9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <span style={{ color: 'white', fontSize: 11, fontWeight: 700 }}>✓</span>
@@ -131,10 +139,10 @@ export default function SurveyPanel({ location, onClose }) {
               })}
             </div>
           )}
-          <button onClick={() => setStep('location')} disabled={!selectedSubImage} style={{
+          <button onClick={() => setStep('location')} disabled={!selectedSubImage || subImages.length === 0} style={{
             width: '100%', padding: '14px', borderRadius: 10, border: 'none',
-            background: selectedSubImage ? 'var(--ink)' : 'var(--border)',
-            color: selectedSubImage ? 'var(--bg)' : 'var(--muted)',
+            background: selectedSubImage ? '#1B3A6B' : 'var(--border)',
+            color: selectedSubImage ? '#FFFFFF' : 'var(--muted)',
             fontFamily: 'Cormorant Garamond, serif', fontSize: 19, fontWeight: 600,
             cursor: selectedSubImage ? 'pointer' : 'not-allowed', transition: 'all 0.2s'
           }}>Continue with this photo →</button>
