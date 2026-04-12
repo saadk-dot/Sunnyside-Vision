@@ -245,10 +245,11 @@ export default function HomePage() {
           <style>{`@keyframes fadeIn{from{opacity:0}to{opacity:1}}`}</style>
           <div style={{
             background: 'var(--card)', borderRadius: 16,
-            width: '100%', maxWidth: 560,
-            maxHeight: '90vh', overflowY: 'auto',
-            boxShadow: '0 24px 80px rgba(0,0,0,0.35)',
-            animation: 'slideUp 0.25s ease-out'
+            width: '100%', maxWidth: 960,
+            maxHeight: '92vh', overflowY: 'auto',
+            boxShadow: '0 24px 80px rgba(27,58,107,0.4)',
+            animation: 'slideUp 0.25s ease-out',
+            display: 'flex'
           }}>
             <style>{`@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:none;opacity:1}}`}</style>
             <SurveyPanel
