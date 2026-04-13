@@ -107,14 +107,13 @@ export default function SurveyPanel({ location, onClose }) {
 
   return (
     <div style={{
-      display: 'flex', width: '100%', gap: 20, alignItems: 'flex-start',
-      fontFamily: 'Inter, sans-serif'
+      display: 'flex', width: '100%', gap: 20, alignItems: 'stretch',
+      fontFamily: 'Inter, sans-serif', justifyContent: 'center'
     }}>
 
       {/* ── LEFT: Survey Bubble ── */}
       <div style={{
-        flex: '0 0 500px', overflowY: 'auto',
-        maxHeight: '88vh',
+        flex: '0 0 480px', overflowY: 'auto',
         padding: '32px 36px',
         background: '#FFFFFF',
         borderRadius: 20,
@@ -316,16 +315,16 @@ export default function SurveyPanel({ location, onClose }) {
       {/* ── RIGHT: Image Preview Bubble ── */}
       {showRightPanel && (
         <div style={{
-          flex: '0 0 380px',
+          flex: '0 0 360px',
           background: '#FFFFFF',
           borderRadius: 20,
           display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center',
+          alignItems: 'center', justifyContent: 'flex-start',
           padding: '32px', position: 'relative',
           boxShadow: '0 24px 80px rgba(27,58,107,0.4)',
           animation: 'slideUp 0.3s ease-out',
-          maxHeight: '88vh', overflowY: 'auto',
-          alignSelf: 'flex-start'
+          overflowY: 'auto',
+          alignSelf: 'stretch'
         }}>
           {/* Label */}
           <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#4A6FA5', fontWeight: 600, marginBottom: 16, alignSelf: 'flex-start' }}>

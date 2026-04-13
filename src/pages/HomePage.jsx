@@ -243,7 +243,13 @@ export default function HomePage() {
           onClick={e => e.target === e.currentTarget && setSelected(null)}
         >
           <style>{`@keyframes fadeIn{from{opacity:0}to{opacity:1}}`}</style>
-          <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start', width: '100%', maxWidth: 1000 }}>
+          <div style={{ 
+            display: 'flex', gap: 20, 
+            alignItems: 'stretch',
+            width: '100%', maxWidth: 880,
+            maxHeight: '88vh',
+            margin: '0 auto'
+          }}>
             <style>{`@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:none;opacity:1}}`}</style>
             <SurveyPanel
               location={selected}
