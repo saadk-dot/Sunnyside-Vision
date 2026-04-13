@@ -447,34 +447,107 @@ function AddQuestionForm({ locationId, onSave, onCancel, orderNum }) {
 
 function AdminGallery() {
   const [items, setItems] = useState([])
-  useEffect(() => { load() }, [])
+  const [uploading, setUploading] = useState(false)
+  const [uploadLoc, setUploadLoc] = useState('')
+  const [locations, setLocations] = useState([])
+  const fileRef = useRef()
+
+  useEffect(() => { load(); loadLocs() }, [])
+
   async function load() {
-    const { data } = await supabase.from('gallery').select('*, locations(name)').order('created_at', { ascending: false })
+    const { data } = await supabase.from('gallery').select('*, locations(name, color)').order('display_order', { ascending: true }).order('created_at', { ascending: false })
     if (data) setItems(data)
   }
-  async function deleteItem(id) { await supabase.from('gallery').delete().eq('id', id); load() }
-  async function toggleApprove(id, current) { await supabase.from('gallery').update({ approved: !current }).eq('id', id); load() }
+  async function loadLocs() {
+    const { data } = await supabase.from('locations').select('id, name')
+    if (data) setLocations(data)
+  }
+  async function deleteItem(id) {
+    if (!confirm('Delete this image permanently?')) return
+    await supabase.from('gallery').delete().eq('id', id); load()
+  }
+  async function toggleApprove(id, current) {
+    await supabase.from('gallery').update({ approved: !current }).eq('id', id); load()
+  }
+  function downloadImage(url, id) {
+    const a = document.createElement('a')
+    a.href = url; a.download = `sunnyside-vision-${id}.jpg`; a.target = '_blank'
+    document.body.appendChild(a); a.click(); document.body.removeChild(a)
+  }
+  async function moveUp(item, index) {
+    if (index === 0) return
+    const prev = items[index - 1]
+    await supabase.from('gallery').update({ display_order: index - 1 }).eq('id', item.id)
+    await supabase.from('gallery').update({ display_order: index }).eq('id', prev.id)
+    load()
+  }
+  async function moveDown(item, index) {
+    if (index === items.length - 1) return
+    const next = items[index + 1]
+    await supabase.from('gallery').update({ display_order: index + 1 }).eq('id', item.id)
+    await supabase.from('gallery').update({ display_order: index }).eq('id', next.id)
+    load()
+  }
+  async function uploadExample(file) {
+    if (!uploadLoc) return alert('Please select a location first')
+    setUploading(true)
+    const ext = file.name.split('.').pop()
+    const path = `gallery/admin/${Date.now()}.${ext}`
+    const { error } = await supabase.storage.from('images').upload(path, file)
+    if (!error) {
+      const { data: urlData } = supabase.storage.from('images').getPublicUrl(path)
+      await supabase.from('gallery').insert({ location_id: uploadLoc, image_url: urlData.publicUrl, prompt: 'Admin upload', approved: true, display_order: 0 })
+      load()
+    }
+    setUploading(false)
+  }
 
   return (
     <div style={{ padding: '48px' }}>
       <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 40, marginBottom: 8 }}>Gallery</h1>
-      <p style={{ color: '#4A6FA5', marginBottom: 40 }}>Manage community submitted artworks</p>
+      <p style={{ color: '#4A6FA5', marginBottom: 28 }}>Manage, organize, and upload community artworks</p>
+
+      <div style={{ background: 'white', borderRadius: 12, padding: '20px 24px', border: '1px solid #DDD8CE', marginBottom: 28 }}>
+        <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, marginBottom: 4 }}>Upload Example Image</h3>
+        <p style={{ fontSize: 13, color: '#4A6FA5', marginBottom: 14 }}>Upload an image directly as an admin — useful for example or seed content.</p>
+        <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+          <select value={uploadLoc} onChange={e => setUploadLoc(e.target.value)} style={{ padding: '9px 12px', borderRadius: 8, border: '1.5px solid #DDD8CE', fontSize: 13, outline: 'none', color: '#1B3A6B' }}>
+            <option value="">Select location...</option>
+            {locations.map(l => <option key={l.id} value={l.id}>{l.name}</option>)}
+          </select>
+          <button onClick={() => fileRef.current && fileRef.current.click()} disabled={uploading || !uploadLoc} style={{ padding: '9px 20px', borderRadius: 8, background: uploadLoc ? '#4A90D9' : '#C5D8EF', color: uploadLoc ? 'white' : '#4A6FA5', border: 'none', fontWeight: 600, fontSize: 13, cursor: uploadLoc ? 'pointer' : 'not-allowed' }}>
+            {uploading ? 'Uploading...' : '+ Upload Image'}
+          </button>
+          <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => e.target.files[0] && uploadExample(e.target.files[0])} />
+        </div>
+      </div>
+
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
-        {items.map(item => (
-          <div key={item.id} style={{ background: 'white', borderRadius: 12, overflow: 'hidden', border: '1px solid #DDD8CE' }}>
-            <img src={item.image_url} alt="" style={{ width: '100%', height: 180, objectFit: 'cover', display: 'block' }} onError={e => e.target.src = `https://picsum.photos/seed/${item.id}/400/200`} />
-            <div style={{ padding: '14px' }}>
-              <div style={{ fontWeight: 500, fontSize: 14, marginBottom: 4 }}>{item.locations?.name}</div>
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 12 }}>{new Date(item.created_at).toLocaleDateString()}</div>
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button onClick={() => toggleApprove(item.id, item.approved)} style={{ flex: 1, padding: '7px', borderRadius: 7, fontSize: 12, fontWeight: 600, border: 'none', background: item.approved ? '#E8F5E9' : '#FFF3E0', color: item.approved ? '#2E7D32' : '#E65100', cursor: 'pointer' }}>{item.approved ? '✓ Visible' : '○ Hidden'}</button>
-                <button onClick={() => deleteItem(item.id)} style={{ padding: '7px 12px', borderRadius: 7, border: '1.5px solid #FFCCCC', background: '#FFF5F5', color: '#C0392B', fontSize: 12, cursor: 'pointer' }}>Delete</button>
+        {items.map((item, index) => (
+          <div key={item.id} style={{ background: 'white', borderRadius: 12, overflow: 'hidden', border: '1px solid #DDD8CE', opacity: item.approved ? 1 : 0.6 }}>
+            <div style={{ position: 'relative' }}>
+              <img src={item.image_url} alt="" style={{ width: '100%', height: 180, objectFit: 'cover', display: 'block' }} onError={e => e.target.src = `https://picsum.photos/seed/${item.id}/400/200`} />
+              <div style={{ position: 'absolute', top: 8, right: 8, display: 'flex', gap: 6 }}>
+                <button onClick={() => moveUp(item, index)} title="Move up" style={{ width: 26, height: 26, borderRadius: 6, background: 'rgba(255,255,255,0.9)', border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 700 }}>↑</button>
+                <button onClick={() => moveDown(item, index)} title="Move down" style={{ width: 26, height: 26, borderRadius: 6, background: 'rgba(255,255,255,0.9)', border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 700 }}>↓</button>
+              </div>
+            </div>
+            <div style={{ padding: '12px 14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+                <span style={{ fontWeight: 600, fontSize: 13, color: '#1B3A6B' }}>{item.locations?.name}</span>
+                <span style={{ fontSize: 11, color: '#4A6FA5' }}>{new Date(item.created_at).toLocaleDateString()}</span>
+              </div>
+              <div style={{ fontSize: 12, color: '#4A6FA5', marginBottom: 10 }}>{item.likes_count || 0} likes</div>
+              <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap' }}>
+                <button onClick={() => toggleApprove(item.id, item.approved)} style={{ flex: 1, minWidth: 70, padding: '6px 8px', borderRadius: 7, fontSize: 11, fontWeight: 600, border: 'none', background: item.approved ? '#E8F5E9' : '#FFF3E0', color: item.approved ? '#2E7D32' : '#E65100', cursor: 'pointer' }}>{item.approved ? 'Visible' : 'Hidden'}</button>
+                <button onClick={() => downloadImage(item.image_url, item.id)} style={{ padding: '6px 10px', borderRadius: 7, border: '1.5px solid #C5D8EF', background: 'white', color: '#4A90D9', fontSize: 11, cursor: 'pointer', fontWeight: 600 }}>Download</button>
+                <button onClick={() => deleteItem(item.id)} style={{ padding: '6px 10px', borderRadius: 7, border: '1.5px solid #FFCCCC', background: '#FFF5F5', color: '#C0392B', fontSize: 11, cursor: 'pointer' }}>Delete</button>
               </div>
             </div>
           </div>
         ))}
       </div>
-      {items.length === 0 && <p style={{ color: 'rgba(255,255,255,0.5)', fontStyle: 'italic' }}>No gallery items yet.</p>}
+      {items.length === 0 && <p style={{ color: '#4A6FA5', fontStyle: 'italic', marginTop: 20 }}>No gallery items yet.</p>}
     </div>
   )
 }
