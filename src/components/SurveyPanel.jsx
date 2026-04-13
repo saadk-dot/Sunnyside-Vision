@@ -107,16 +107,21 @@ export default function SurveyPanel({ location, onClose }) {
 
   return (
     <div style={{
-      display: 'flex', width: '100%', height: '100%',
-      fontFamily: 'Inter, sans-serif', borderRadius: 16, overflow: 'hidden'
+      display: 'flex', width: '100%', gap: 20, alignItems: 'flex-start',
+      fontFamily: 'Inter, sans-serif'
     }}>
 
-      {/* ── LEFT: Survey Panel ── */}
+      {/* ── LEFT: Survey Bubble ── */}
       <div style={{
-        flex: '0 0 520px', overflowY: 'auto',
+        flex: '0 0 500px', overflowY: 'auto',
+        maxHeight: '88vh',
         padding: '32px 36px',
-        borderRight: showRightPanel ? '1px solid #C5D8EF' : 'none'
+        background: '#FFFFFF',
+        borderRadius: 20,
+        boxShadow: '0 24px 80px rgba(27,58,107,0.3)',
+        animation: 'slideUp 0.25s ease-out'
       }}>
+      <style>{`@keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}`}</style>
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 20 }}>
           <div>
@@ -308,17 +313,22 @@ export default function SurveyPanel({ location, onClose }) {
         )}
       </div>
 
-      {/* ── RIGHT: Image Preview Panel ── */}
+      {/* ── RIGHT: Image Preview Bubble ── */}
       {showRightPanel && (
         <div style={{
-          flex: '0 0 400px',
-          background: '#1B3A6B',
+          flex: '0 0 380px',
+          background: '#FFFFFF',
+          borderRadius: 20,
           display: 'flex', flexDirection: 'column',
           alignItems: 'center', justifyContent: 'center',
-          padding: '32px', position: 'relative'
+          padding: '32px', position: 'relative',
+          boxShadow: '0 24px 80px rgba(27,58,107,0.4)',
+          animation: 'slideUp 0.3s ease-out',
+          maxHeight: '88vh', overflowY: 'auto',
+          alignSelf: 'flex-start'
         }}>
           {/* Label */}
-          <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.5)', fontWeight: 600, marginBottom: 16, alignSelf: 'flex-start' }}>
+          <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#4A6FA5', fontWeight: 600, marginBottom: 16, alignSelf: 'flex-start' }}>
             {step === 'result' && !generating ? 'Your Generated Vision' : step === 'priorities' ? 'Generating after submit...' : 'Your Selected View'}
           </div>
 
@@ -328,7 +338,7 @@ export default function SurveyPanel({ location, onClose }) {
             borderRadius: 12, overflow: 'hidden',
             position: 'relative',
             boxShadow: '0 8px 40px rgba(0,0,0,0.4)',
-            background: '#162F58'
+            background: '#EEF4FB'
           }}>
             {/* Selected sub-image always shows as base */}
             {selectedSubImage && (
@@ -362,17 +372,17 @@ export default function SurveyPanel({ location, onClose }) {
                 position: 'absolute', inset: 0,
                 display: 'flex', flexDirection: 'column',
                 alignItems: 'center', justifyContent: 'center',
-                background: 'rgba(27,58,107,0.7)'
+                background: 'rgba(238,244,251,0.85)'
               }}>
-                <div style={{ width: 48, height: 48, borderRadius: '50%', border: '3px solid rgba(255,255,255,0.2)', borderTopColor: '#4A90D9', animation: 'spin 0.8s linear infinite', marginBottom: 16 }} />
-                <p style={{ color: 'white', fontSize: 14, fontWeight: 500 }}>Creating your vision…</p>
+                <div style={{ width: 48, height: 48, borderRadius: '50%', border: '3px solid #C5D8EF', borderTopColor: '#4A90D9', animation: 'spin 0.8s linear infinite', marginBottom: 16 }} />
+                <p style={{ color: '#1B3A6B', fontSize: 14, fontWeight: 500 }}>Creating your vision…</p>
               </div>
             )}
           </div>
 
           {/* Caption */}
           <div style={{ marginTop: 14, alignSelf: 'flex-start' }}>
-            <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', lineHeight: 1.5 }}>
+            <div style={{ fontSize: 12, color: '#4A6FA5', lineHeight: 1.5 }}>
               {step === 'result' && !generating ? 'AI-generated from your answers' : selectedSubImage?.caption}
             </div>
           </div>
