@@ -315,7 +315,7 @@ export default function SurveyPanel({ location, onClose }) {
       {/* ── RIGHT: Image Preview Bubble ── */}
       {showRightPanel && (
         <div style={{
-          flex: '0 0 360px',
+          flex: '0 0 460px',
           background: '#FFFFFF',
           borderRadius: 20,
           display: 'flex', flexDirection: 'column',

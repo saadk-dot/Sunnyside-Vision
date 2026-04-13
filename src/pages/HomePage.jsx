@@ -246,7 +246,7 @@ export default function HomePage() {
           <div style={{ 
             display: 'flex', gap: 20, 
             alignItems: 'stretch',
-            width: '100%', maxWidth: 880,
+            width: '100%', maxWidth: 1000,
             maxHeight: '88vh',
             margin: '0 auto'
           }}>
